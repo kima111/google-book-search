@@ -9,7 +9,10 @@ class Search extends Component {
   state = {
     search: "",
     results: [],
-    error: ""
+    error: "",
+    title: "",
+    author: "",
+    synopsis: ""
   };
 
   // When the component mounts, get a list of all available base breeds and update this.state.breeds
@@ -25,16 +28,44 @@ class Search extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
+    console.log("clicked")
     API.getSearchedBooks(this.state.search)
       .then(res => {
         if (res.data.status === "error") {
           throw new Error(res.data.message);
         }
-        console.log(res.data.items[0].volumeInfo.title)
-        this.setState({ results: res.data.items[0].volumeInfo.title, error: "" });
+        console.log(res.data.items[0].volumeInfo)
+        this.setState({ results: res.data.items, error: "" });
       })
       .catch(err => this.setState({ error: err.message }));
   };
+
+
+  handleSaveChange = event =>{
+    event.preventDefault();
+    console.log('clicked save')
+    this.setState({title: event.target.title, author: event.target.getAttribute('author'), synopsis: event.target.getAttribute('synopsis')}, ()=>{
+      
+      API.saveBook({
+        title: this.state.title,
+        author: this.state.author,
+        synopsis: this.state.synopsis
+      })
+      .catch(err=>console.log(err))
+    
+    })
+    
+    //   API.saveBook({
+    //     title: this.state.title,
+    //     author: this.state.author,
+    //     synopsis: this.state.synopsis
+    //   })
+    //     .then()
+    //     .catch(err => console.log(err));
+    // console.log(event.target.getAttribute('synopsis'))
+    
+   
+  }
   render() {
     return (
       <div>
@@ -50,7 +81,9 @@ class Search extends Component {
             handleFormSubmit={this.handleFormSubmit}
             handleInputChange={this.handleInputChange}
           />
-          <SearchResults results={this.state.results} />
+          <SearchResults 
+            results={this.state.results} 
+            handleSaveChange={this.handleSaveChange}/>
         </Container>
       </div>
     );
