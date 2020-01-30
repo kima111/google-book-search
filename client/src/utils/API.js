@@ -17,13 +17,7 @@ export default {
   saveBook: function(bookData) {
     return axios.post("/api/books", bookData);
   },
-  getRandomDog: function() {
-    return axios.get("https://dog.ceo/api/breeds/image/random");
-  },
-  getDogsOfBreed: function(breed) {
-    return axios.get("https://dog.ceo/api/breed/" + breed + "/images");
-  },
-  getBaseBreedsList: function() {
-    return axios.get("https://dog.ceo/api/breeds/list");
+  getSearchedBooks: function(bookTitle) {
+    return axios.get("https://www.googleapis.com/books/v1/volumes?q="+ bookTitle +"&key=AIzaSyA0mW6LX2e6qpjeG2SE5K3vp5VN0SGrDq0");
   }
 };
