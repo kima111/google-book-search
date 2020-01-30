@@ -12,6 +12,8 @@ class Search extends Component {
     error: "",
     title: "",
     author: "",
+    image: "",
+    link: "",
     synopsis: ""
   };
 
@@ -44,11 +46,13 @@ class Search extends Component {
   handleSaveChange = event =>{
     event.preventDefault();
     console.log('clicked save')
-    this.setState({title: event.target.title, author: event.target.getAttribute('author'), synopsis: event.target.getAttribute('synopsis')}, ()=>{
+    this.setState({title: event.target.title, author: event.target.getAttribute('author'), image: event.target.getAttribute('image'), link: event.target.getAttribute('link'), synopsis: event.target.getAttribute('synopsis')}, ()=>{
       
       API.saveBook({
         title: this.state.title,
         author: this.state.author,
+        link: this.state.link,
+        image: this.state.image,
         synopsis: this.state.synopsis
       })
       .catch(err=>console.log(err))

@@ -12,7 +12,9 @@ class Books extends Component {
     books: [],
     title: "",
     author: "",
-    synopsis: ""
+    synopsis: "",
+    image: "", 
+    link: ""
   };
 
   componentDidMount() {
@@ -46,7 +48,9 @@ class Books extends Component {
       API.saveBook({
         title: this.state.title,
         author: this.state.author,
-        synopsis: this.state.synopsis
+        synopsis: this.state.synopsis,
+        image: this.state.image,
+        link: this.state.link
       })
         .then(res => this.loadBooks())
         .catch(err => console.log(err));
@@ -73,6 +77,18 @@ class Books extends Component {
                 onChange={this.handleInputChange}
                 name="author"
                 placeholder="Author (required)"
+              />
+               <Input
+                value={this.state.image}
+                onChange={this.handleInputChange}
+                name="image"
+                placeholder="image link"
+              />
+               <Input
+                value={this.state.link}
+                onChange={this.handleInputChange}
+                name="link"
+                placeholder="link to book"
               />
               <TextArea
                 value={this.state.synopsis}

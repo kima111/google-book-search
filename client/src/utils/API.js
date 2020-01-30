@@ -1,4 +1,5 @@
 import axios from "axios";
+const API_KEY = process.env.REACT_APP_BOOK_API_KEY;
 
 export default {
   // Gets all books
@@ -18,6 +19,6 @@ export default {
     return axios.post("/api/books", bookData);
   },
   getSearchedBooks: function(bookTitle) {
-    return axios.get("https://www.googleapis.com/books/v1/volumes?q="+ bookTitle +"&key=AIzaSyA0mW6LX2e6qpjeG2SE5K3vp5VN0SGrDq0");
+    return axios.get("https://www.googleapis.com/books/v1/volumes?q="+ bookTitle +"&key=" + API_KEY);
   }
 };
